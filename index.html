@@ -8,11 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@1,600&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
-:root{
---bg-color:#1a0105;
---primary-red:#800f2f;
---accent-pink:#ff4d6d;
---text-gold:#ffb3c1;
+:root {
+--bg-color: #1a0105;
+--primary-red: #800f2f;
+--accent-pink: #ff4d6d;
+--text-gold: #ffb3c1;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -75,6 +75,7 @@ overflow:hidden;
 border:2px solid #fff;
 box-shadow:0 0 20px rgba(255,255,255,0.3);
 position:relative;
+flex-shrink:0;
 }
 
 .slide-img{
@@ -86,6 +87,7 @@ top:0;
 left:0;
 opacity:0;
 transition:opacity 1.5s ease-in-out, transform 2s ease;
+filter:brightness(1.1);
 }
 
 .slide-img.active{
@@ -111,6 +113,7 @@ z-index:15;
 }
 
 .text-content{
+padding:0;
 margin-bottom:60px;
 min-height:100px;
 }
@@ -151,7 +154,18 @@ border-radius:50%;
 cursor:pointer;
 box-shadow:0 5px 20px rgba(128,15,47,0.4);
 z-index:25;
+transition:0.3s;
+display:flex;
+justify-content:center;
+align-items:center;
 font-size:30px;
+color:var(--primary-red);
+}
+
+.btn-heart:hover{
+transform:translateX(-50%) scale(1.1);
+background:var(--accent-pink);
+color:white;
 }
 
 .particle{
@@ -175,9 +189,9 @@ to{opacity:1;transform:translateY(0);}
 
 <body>
 
-<!-- NHẠC TỰ PHÁT -->
-<audio id="bgmusic" autoplay loop muted>
-<source src="https://files.catbox.moe/6s6s0g.mp3" type="audio/mpeg">
+<!-- NHẠC -->
+<audio id="bgmusic" autoplay loop>
+<source src="https://files.catbox.moe/2y9p0h.mp3" type="audio/mpeg">
 </audio>
 
 <canvas id="canvas"></canvas>
@@ -187,38 +201,44 @@ to{opacity:1;transform:translateY(0);}
 <div class="heart-icon">❤️</div>
 
 <div class="img-container">
+
 <img src="https://i.postimg.cc/QM62kpjJ/z7523866925759-a9049963625408bf7ab4c1a7b205abad.jpg" class="slide-img active">
+
 <img src="https://i.postimg.cc/pTsD72sk/z7523866925669-6a3c035b729eca1fcdbc64013dd41ac3.jpg" class="slide-img">
+
 <img src="https://i.postimg.cc/jdhBq1Mn/z7592243345952-f202de3bbfcc742c32cb158a29b232e0.jpg" class="slide-img">
+
 <img src="https://i.postimg.cc/KY4YDB1H/z7592243346235-6f7eb48b6e8d5ca3d568b7fff3510de6.jpg" class="slide-img">
+
 <img src="https://i.postimg.cc/zf5G46PN/z7592607654707-2215a2537d1ab34def5ae69868be89ef.jpg" class="slide-img">
+
 </div>
 
 <div class="text-content">
 
 <div class="text-item active">
 <h2>My Love – Happy 8/3</h2>
-<p>"Bé là điều tuyệt vời nhất mà anh có."</p>
+<p>"Bé là điều tuyệt vời nhất mà anh có. Chúc bé ngày 8/3 luôn vui vẻ, hạnh phúc🌷."</p>
 </div>
 
 <div class="text-item">
 <h2>Bé Là Hạnh Phúc Của Anh❤️</h2>
-<p>"Cảm ơn bé vì đã đến bên anh."</p>
+<p>"Cảm ơn bé vì đã đến bên anh, làm cho cuộc sống của anh trở nên ý nghĩa và ấm áp hơn mỗi ngày🌷."</p>
 </div>
 
 <div class="text-item">
 <h2>Nơi Bình Yên Nhất❤️</h2>
-<p>"Chỉ mong bé luôn vui vẻ."</p>
+<p>"Chỉ mong bé luôn vui vẻ, bình an và ở bên anh thật lâu."</p>
 </div>
 
 <div class="text-item">
 <h2>Mãi Yêu Bé❤️</h2>
-<p>"Anh sẽ luôn bên cạnh em."</p>
+<p>"Chúc cô gái anh yêu luôn xinh đẹp và được yêu thương thật nhiều."</p>
 </div>
 
 <div class="text-item">
 <h2>Forever With You❤️</h2>
-<p>"Chúng ta sẽ cùng nhau đi thật xa."</p>
+<p>"Chúng ta sẽ cùng nhau đi thật xa nhé."</p>
 </div>
 
 </div>
@@ -228,6 +248,9 @@ to{opacity:1;transform:translateY(0);}
 </div>
 
 <script>
+
+const music=document.getElementById("bgmusic");
+music.volume=0.6;
 
 let index=0;
 const imgs=document.querySelectorAll('.slide-img');
@@ -249,7 +272,9 @@ texts[index].classList.add('active');
 function createParticle(x,y){
 
 const p=document.createElement('div');
+
 p.className='particle';
+
 p.innerHTML=['❤️','✨','💖'][Math.floor(Math.random()*3)];
 
 p.style.left=x+'px';
@@ -261,6 +286,7 @@ p.style.setProperty('--y',(Math.random()-0.5)*250+'px');
 document.body.appendChild(p);
 
 setTimeout(()=>p.remove(),800);
+
 }
 
 const canvas=document.getElementById('canvas');
@@ -281,6 +307,7 @@ speed:Math.random()*1.5+0.5,
 wind:Math.random()*0.5-0.25,
 opacity:Math.random()*0.5
 };
+
 }
 
 function draw(){
@@ -294,29 +321,25 @@ hearts.forEach((h,i)=>{
 ctx.globalAlpha=h.opacity;
 
 ctx.beginPath();
+
 ctx.arc(h.x,h.y,h.size/2,0,Math.PI*2);
+
 ctx.fill();
 
 h.y+=h.speed;
 h.x+=h.wind;
 
 if(h.y>canvas.height) hearts[i]=createHeart();
+
 });
 
 requestAnimationFrame(draw);
+
 }
 
 for(let j=0;j<50;j++) hearts.push(createHeart());
 
 draw();
-
-/* bật âm thanh */
-const music=document.getElementById("bgmusic");
-
-window.addEventListener("load",()=>{
-music.muted=false;
-music.play().catch(()=>{});
-});
 
 </script>
 
