@@ -75,7 +75,6 @@ overflow:hidden;
 border:2px solid #fff;
 box-shadow:0 0 20px rgba(255,255,255,0.3);
 position:relative;
-flex-shrink:0;
 }
 
 .slide-img{
@@ -86,8 +85,7 @@ position:absolute;
 top:0;
 left:0;
 opacity:0;
-transition:opacity 1.5s ease-in-out,transform 2s ease;
-filter:brightness(1.1);
+transition:opacity 1.5s ease-in-out, transform 2s ease;
 }
 
 .slide-img.active{
@@ -113,7 +111,6 @@ z-index:15;
 }
 
 .text-content{
-padding:0;
 margin-bottom:60px;
 min-height:100px;
 }
@@ -123,9 +120,7 @@ display:none;
 animation:fadeIn 1s forwards;
 }
 
-.text-item.active{
-display:block;
-}
+.text-item.active{display:block;}
 
 h2{
 font-family:'Dancing Script',cursive;
@@ -156,18 +151,7 @@ border-radius:50%;
 cursor:pointer;
 box-shadow:0 5px 20px rgba(128,15,47,0.4);
 z-index:25;
-transition:0.3s;
-display:flex;
-justify-content:center;
-align-items:center;
 font-size:30px;
-color:var(--primary-red);
-}
-
-.btn-heart:hover{
-transform:translateX(-50%) scale(1.1);
-background:var(--accent-pink);
-color:white;
 }
 
 .particle{
@@ -191,9 +175,9 @@ to{opacity:1;transform:translateY(0);}
 
 <body>
 
-<!-- NHẠC -->
-<audio id="music" autoplay loop>
-<source src="https://files.catbox.moe/7e8m1o.mp3" type="audio/mpeg">
+<!-- NHẠC TỰ PHÁT -->
+<audio id="bgmusic" autoplay loop muted>
+<source src="https://files.catbox.moe/6s6s0g.mp3" type="audio/mpeg">
 </audio>
 
 <canvas id="canvas"></canvas>
@@ -211,30 +195,32 @@ to{opacity:1;transform:translateY(0);}
 </div>
 
 <div class="text-content">
+
 <div class="text-item active">
 <h2>My Love – Happy 8/3</h2>
-<p>"Bé là điều tuyệt vời nhất mà anh có. Chúc bé ngày 8/3 luôn vui vẻ, hạnh phúc🌷."</p>
+<p>"Bé là điều tuyệt vời nhất mà anh có."</p>
 </div>
 
 <div class="text-item">
 <h2>Bé Là Hạnh Phúc Của Anh❤️</h2>
-<p>"Cảm ơn bé vì đã đến bên anh, làm cho cuộc sống của anh trở nên ý nghĩa và ấm áp hơn mỗi ngày🌷."</p>
+<p>"Cảm ơn bé vì đã đến bên anh."</p>
 </div>
 
 <div class="text-item">
 <h2>Nơi Bình Yên Nhất❤️</h2>
-<p>"Chỉ mong bé luôn vui vẻ, bình an và ở bên anh thật lâu."</p>
+<p>"Chỉ mong bé luôn vui vẻ."</p>
 </div>
 
 <div class="text-item">
 <h2>Mãi Yêu Bé❤️</h2>
-<p>"Chúc cô gái anh yêu luôn xinh đẹp và được yêu thương thật nhiều."</p>
+<p>"Anh sẽ luôn bên cạnh em."</p>
 </div>
 
 <div class="text-item">
 <h2>Forever With You❤️</h2>
-<p>"Mong rằng mọi điều tốt đẹp nhất sẽ luôn đến với bé."</p>
+<p>"Chúng ta sẽ cùng nhau đi thật xa."</p>
 </div>
+
 </div>
 
 <button class="btn-heart" onclick="showNext(event)">❤️</button>
@@ -249,7 +235,7 @@ const texts=document.querySelectorAll('.text-item');
 
 function showNext(e){
 
-for(let i=0;i<12;i++)createParticle(e.clientX,e.clientY);
+for(let i=0;i<12;i++) createParticle(e.clientX,e.clientY);
 
 imgs[index].classList.remove('active');
 texts[index].classList.remove('active');
@@ -258,15 +244,12 @@ index=(index+1)%imgs.length;
 
 imgs[index].classList.add('active');
 texts[index].classList.add('active');
-
 }
 
 function createParticle(x,y){
 
 const p=document.createElement('div');
-
 p.className='particle';
-
 p.innerHTML=['❤️','✨','💖'][Math.floor(Math.random()*3)];
 
 p.style.left=x+'px';
@@ -278,7 +261,6 @@ p.style.setProperty('--y',(Math.random()-0.5)*250+'px');
 document.body.appendChild(p);
 
 setTimeout(()=>p.remove(),800);
-
 }
 
 const canvas=document.getElementById('canvas');
@@ -292,16 +274,13 @@ let hearts=[];
 function createHeart(){
 
 return{
-
 x:Math.random()*canvas.width,
 y:-10,
 size:Math.random()*5+2,
 speed:Math.random()*1.5+0.5,
 wind:Math.random()*0.5-0.25,
 opacity:Math.random()*0.5
-
 };
-
 }
 
 function draw(){
@@ -315,33 +294,28 @@ hearts.forEach((h,i)=>{
 ctx.globalAlpha=h.opacity;
 
 ctx.beginPath();
-
 ctx.arc(h.x,h.y,h.size/2,0,Math.PI*2);
-
 ctx.fill();
 
 h.y+=h.speed;
-
 h.x+=h.wind;
 
-if(h.y>canvas.height)hearts[i]=createHeart();
-
+if(h.y>canvas.height) hearts[i]=createHeart();
 });
 
 requestAnimationFrame(draw);
-
 }
 
-for(let j=0;j<50;j++)hearts.push(createHeart());
+for(let j=0;j<50;j++) hearts.push(createHeart());
 
 draw();
 
-/* bật nhạc khi người dùng chạm vào trang */
+/* bật âm thanh */
+const music=document.getElementById("bgmusic");
 
-document.body.addEventListener("click",function(){
-
-document.getElementById("music").play();
-
+window.addEventListener("load",()=>{
+music.muted=false;
+music.play().catch(()=>{});
 });
 
 </script>
