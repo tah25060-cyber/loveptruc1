@@ -86,7 +86,7 @@ position:absolute;
 top:0;
 left:0;
 opacity:0;
-transition:opacity 1.5s ease-in-out, transform 2s ease;
+transition:opacity 1.5s ease-in-out,transform 2s ease;
 filter:brightness(1.1);
 }
 
@@ -123,7 +123,9 @@ display:none;
 animation:fadeIn 1s forwards;
 }
 
-.text-item.active{display:block;}
+.text-item.active{
+display:block;
+}
 
 h2{
 font-family:'Dancing Script',cursive;
@@ -189,6 +191,7 @@ to{opacity:1;transform:translateY(0);}
 
 <body>
 
+<!-- NHẠC -->
 <audio id="music" autoplay loop>
 <source src="https://files.catbox.moe/7e8m1o.mp3" type="audio/mpeg">
 </audio>
@@ -208,7 +211,6 @@ to{opacity:1;transform:translateY(0);}
 </div>
 
 <div class="text-content">
-
 <div class="text-item active">
 <h2>My Love – Happy 8/3</h2>
 <p>"Bé là điều tuyệt vời nhất mà anh có. Chúc bé ngày 8/3 luôn vui vẻ, hạnh phúc🌷."</p>
@@ -221,19 +223,18 @@ to{opacity:1;transform:translateY(0);}
 
 <div class="text-item">
 <h2>Nơi Bình Yên Nhất❤️</h2>
-<p>"Chỉ mong bé luôn vui vẻ, bình an và ở bên anh thật lâu. Mong rằng nụ cười của em sẽ luôn rạng rỡ."</p>
+<p>"Chỉ mong bé luôn vui vẻ, bình an và ở bên anh thật lâu."</p>
 </div>
 
 <div class="text-item">
 <h2>Mãi Yêu Bé❤️</h2>
-<p>"Chúc cô gái anh yêu luôn xinh đẹp và được yêu thương thật nhiều. Anh sẽ luôn bên cạnh em."</p>
+<p>"Chúc cô gái anh yêu luôn xinh đẹp và được yêu thương thật nhiều."</p>
 </div>
 
 <div class="text-item">
 <h2>Forever With You❤️</h2>
-<p>"Mong rằng mọi điều tốt đẹp nhất sẽ luôn đến với bé. Chúng ta sẽ cùng nhau đi thật xa nhé."</p>
+<p>"Mong rằng mọi điều tốt đẹp nhất sẽ luôn đến với bé."</p>
 </div>
-
 </div>
 
 <button class="btn-heart" onclick="showNext(event)">❤️</button>
@@ -243,7 +244,6 @@ to{opacity:1;transform:translateY(0);}
 <script>
 
 let index=0;
-
 const imgs=document.querySelectorAll('.slide-img');
 const texts=document.querySelectorAll('.text-item');
 
@@ -258,6 +258,7 @@ index=(index+1)%imgs.length;
 
 imgs[index].classList.add('active');
 texts[index].classList.add('active');
+
 }
 
 function createParticle(x,y){
@@ -277,10 +278,10 @@ p.style.setProperty('--y',(Math.random()-0.5)*250+'px');
 document.body.appendChild(p);
 
 setTimeout(()=>p.remove(),800);
+
 }
 
 const canvas=document.getElementById('canvas');
-
 const ctx=canvas.getContext('2d');
 
 canvas.width=window.innerWidth;
@@ -289,14 +290,18 @@ canvas.height=window.innerHeight;
 let hearts=[];
 
 function createHeart(){
+
 return{
+
 x:Math.random()*canvas.width,
 y:-10,
 size:Math.random()*5+2,
 speed:Math.random()*1.5+0.5,
 wind:Math.random()*0.5-0.25,
 opacity:Math.random()*0.5
-}
+
+};
+
 }
 
 function draw(){
@@ -324,14 +329,19 @@ if(h.y>canvas.height)hearts[i]=createHeart();
 });
 
 requestAnimationFrame(draw);
+
 }
 
 for(let j=0;j<50;j++)hearts.push(createHeart());
 
 draw();
 
+/* bật nhạc khi người dùng chạm vào trang */
+
 document.body.addEventListener("click",function(){
+
 document.getElementById("music").play();
+
 });
 
 </script>
